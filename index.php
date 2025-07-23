@@ -20,7 +20,21 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<?php
+// Letakkan ini di bagian paling atas file index.php setelah tag <body> jika belum ada
+// atau cukup pastikan koneksi DB tersedia sebelum section carousel.
+require_once 'db_connection.php'; 
 
+// Ambil data slide yang aktif dari database, urutkan berdasarkan order_number
+$slides_query = "SELECT * FROM carousel_slides WHERE is_active = 1 ORDER BY order_number ASC";
+$slides_result = $conn->query($slides_query);
+$slides = [];
+if ($slides_result->num_rows > 0) {
+    while($row = $slides_result->fetch_assoc()) {
+        $slides[] = $row;
+    }
+}
+?>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
         <div class="container">
@@ -81,54 +95,53 @@
         </div>
     </section>
 
-    <!-- Carousel Section (Produk Unggulan) -->
-    <section id="produk-unggulan" class="py-5 bg-light">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="fw-bold">Produk Unggulan Kami</h2>
-                <p class="text-muted">Pilihan terbaik untuk kebutuhan bisnis kuliner Anda.</p>
-            </div>
-            <div id="productCarousel" class="carousel slide shadow-lg" data-bs-ride="carousel">
-                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="0" class="active"></button>
-                    <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="1"></button>
-                    <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="2"></button>
-                </div>
-                <div class="carousel-inner rounded">
-                    <div class="carousel-item active">
-                        <!-- Ganti gambar carousel di folder assets/images/ -->
-                        <img src="assets/images/carousel1.jpg" class="d-block w-100" alt="Nugget Ayam">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Nugget Ayam Premium</h5>
-                            <p>Dibuat dari daging ayam pilihan, renyah di luar dan lembut di dalam.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/images/carousel2.jpg" class="d-block w-100" alt="Sosis Sapi">
-                         <div class="carousel-caption d-none d-md-block">
-                            <h5>Sosis Sapi Berkualitas</h5>
-                            <p>Rasa daging sapi asli yang cocok untuk sarapan atau hidangan utama.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/images/carousel3.jpg" class="d-block w-100" alt="Kentang Goreng">
-                         <div class="carousel-caption d-none d-md-block">
-                            <h5>Kentang Goreng Shoestring</h5>
-                            <p>Potongan tipis yang renyah dan gurih, favorit semua kalangan.</p>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
+   <!-- Carousel Section (Produk Unggulan) -->
+<section id="produk-unggulan" class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Produk Unggulan Kami</h2>
+            <p class="text-muted">Pilihan terbaik untuk kebutuhan bisnis kuliner Anda.</p>
         </div>
-    </section>
+
+        <?php if (!empty($slides)): ?>
+        <div id="productCarousel" class="carousel slide shadow-lg" data-bs-ride="carousel">
+            <!-- Carousel Indicators -->
+            <div class="carousel-indicators">
+                <?php foreach ($slides as $index => $slide): ?>
+                    <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="<?php echo $index; ?>" class="<?php echo $index == 0 ? 'active' : ''; ?>"></button>
+                <?php endforeach; ?>
+            </div>
+
+            <!-- Carousel Inner -->
+            <div class="carousel-inner rounded">
+                <?php foreach ($slides as $index => $slide): ?>
+                <div class="carousel-item <?php echo $index == 0 ? 'active' : ''; ?>">
+                    <img src="assets/images/carousel/<?php echo htmlspecialchars($slide['image_path']); ?>" class="d-block w-100" alt="<?php echo htmlspecialchars($slide['title']); ?>">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5><?php echo htmlspecialchars($slide['title']); ?></h5>
+                        <p><?php echo htmlspecialchars($slide['caption']); ?></p>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <?php else: ?>
+            <div class="text-center">
+                <p>Saat ini belum ada produk unggulan yang ditampilkan.</p>
+            </div>
+        <?php endif; ?>
+    </div>
+</section>
 
     <!-- Footer -->
     <footer class="bg-dark text-white pt-5 pb-4">

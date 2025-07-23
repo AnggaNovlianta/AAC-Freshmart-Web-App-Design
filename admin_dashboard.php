@@ -74,22 +74,28 @@ $result_users = $conn->query($query_users);
     <h4 class="text-center">AAC Freshmart</h4>
     <hr class="text-white">
     <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-            <a href="#" class="nav-link text-white">
-                <i class="fa fa-tachometer-alt"></i> Dashboard
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link active">
-                <i class="fa fa-users"></i> Manajemen User
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link text-white">
-                <i class="fa fa-box"></i> Manajemen Produk
-            </a>
-        </li>
-    </ul>
+    <li class="nav-item">
+        <a href="admin_dashboard.php" class="nav-link text-white">
+            <i class="fa fa-tachometer-alt"></i> Dashboard
+        </a>
+    </li>
+    <li>
+        <a href="admin_dashboard.php" class="nav-link text-white">
+            <i class="fa fa-users"></i> Manajemen User
+        </a>
+    </li>
+    <li>
+        <!-- MENU BARU -->
+        <a href="carousel_management.php" class="nav-link active">
+            <i class="fa-regular fa-images"></i> Manajemen Carousel
+        </a>
+    </li>
+    <li>
+        <a href="#" class="nav-link text-white">
+            <i class="fa fa-box"></i> Manajemen Produk
+        </a>
+    </li>
+</ul>
     <hr class="text-white">
     <div class="dropdown">
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
