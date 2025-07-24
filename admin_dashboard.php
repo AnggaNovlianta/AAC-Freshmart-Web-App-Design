@@ -84,12 +84,6 @@ $result_users = $conn->query($query_users);
             <i class="fa fa-users"></i> Manajemen User
         </a>
     </li>
-    <li>
-        <!-- MENU BARU -->
-        <a href="carousel_management.php" class="nav-link active">
-            <i class="fa-regular fa-images"></i> Manajemen Carousel
-        </a>
-    </li>
     <!-- Di dalam file admin_dashboard.php, di dalam <ul class="nav ..."> -->
     <li>
         <a href="settings_management.php" class="nav-link text-white">

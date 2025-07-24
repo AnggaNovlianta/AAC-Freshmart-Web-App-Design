@@ -115,43 +115,52 @@ if ($slides_result->num_rows > 0) {
             <p class="text-muted">Pilihan terbaik untuk kebutuhan bisnis kuliner Anda.</p>
         </div>
 
-        <?php if (!empty($slides)): ?>
-        <div id="productCarousel" class="carousel slide shadow-lg" data-bs-ride="carousel">
-            <!-- Carousel Indicators -->
-            <div class="carousel-indicators">
-                <?php foreach ($slides as $index => $slide): ?>
-                    <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="<?php echo $index; ?>" class="<?php echo $index == 0 ? 'active' : ''; ?>"></button>
-                <?php endforeach; ?>
-            </div>
+        <!-- BARIS BARU: Bungkus dengan Row untuk alignment -->
+        <div class="row justify-content-center">
+            <!-- BARIS BARU: Bungkus dengan Kolom untuk mengatur lebar -->
+            <div class="col-lg-6 col-md-8 col-sm-10">
 
-            <!-- Carousel Inner -->
-            <div class="carousel-inner rounded">
-                <?php foreach ($slides as $index => $slide): ?>
-                <div class="carousel-item <?php echo $index == 0 ? 'active' : ''; ?>">
-                    <img src="assets/images/carousel/<?php echo htmlspecialchars($slide['image_path']); ?>" class="d-block w-100" alt="<?php echo htmlspecialchars($slide['title']); ?>">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5><?php echo htmlspecialchars($slide['title']); ?></h5>
-                        <p><?php echo htmlspecialchars($slide['caption']); ?></p>
+                <?php if (!empty($slides)): ?>
+                <div id="productCarousel" class="carousel slide shadow-lg" data-bs-ride="carousel">
+                    <!-- Carousel Indicators -->
+                    <div class="carousel-indicators">
+                        <?php foreach ($slides as $index => $slide): ?>
+                            <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="<?php echo $index; ?>" class="<?php echo $index == 0 ? 'active' : ''; ?>"></button>
+                        <?php endforeach; ?>
                     </div>
-                </div>
-                <?php endforeach; ?>
-            </div>
 
-            <!-- Carousel Controls -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-        <?php else: ?>
-            <div class="text-center">
-                <p>Saat ini belum ada produk unggulan yang ditampilkan.</p>
-            </div>
-        <?php endif; ?>
+                    <!-- Carousel Inner -->
+                    <div class="carousel-inner rounded">
+                        <?php foreach ($slides as $index => $slide): ?>
+                        <div class="carousel-item <?php echo $index == 0 ? 'active' : ''; ?>">
+                            <img src="assets/images/carousel/<?php echo htmlspecialchars($slide['image_path']); ?>" class="d-block w-100" alt="<?php echo htmlspecialchars($slide['title']); ?>">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5><?php echo htmlspecialchars($slide['title']); ?></h5>
+                                <p><?php echo htmlspecialchars($slide['caption']); ?></p>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <!-- Carousel Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <?php else: ?>
+                    <div class="text-center">
+                        <p>Saat ini belum ada produk unggulan yang ditampilkan.</p>
+                    </div>
+                <?php endif; ?>
+
+            </div> <!-- PENUTUP BARU: Penutup div kolom -->
+        </div> <!-- PENUTUP BARU: Penutup div row -->
+
     </div>
 </section>
 

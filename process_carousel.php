@@ -31,23 +31,22 @@ if ($action == 'add') {
             if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_path)) {
                 // Simpan ke database
                 $stmt = $conn->prepare("INSERT INTO carousel_slides (title, caption, image_path, order_number, is_active) VALUES (?, ?, ?, ?, ?)");
-                $stmt->bind_param("sssii", $title, $caption, $new_filename, $order_number, $is_active);
-                
-                if ($stmt->execute()) {
-                    header("Location: carousel_management.php?status=success&message=Slide berhasil ditambahkan.");
+                $stmt->bind_param("sssii", $title, $caption, $new_filename, $order_number, $is_active);              
+                 if ($stmt->execute()) {
+                    header("Location: settings_management.php?status=success&message=Slide berhasil ditambahkan.#carousel-section");
                 } else {
-                    header("Location: carousel_management.php?status=error&message=Gagal menyimpan ke database.");
+                    header("Location: settings_management.php?status=error&message=Gagal menyimpan ke database.#carousel-section");
                 }
                 $stmt->close();
             } else {
-                header("Location: carousel_management.php?status=error&message=Gagal memindahkan file.");
+                header("Location: settings_management.php?status=error&message=Gagal memindahkan file.");
             }
-        } else {
-            header("Location: carousel_management.php?status=error&message=Tipe file tidak valid. Hanya JPG/PNG.");
-        }
-    } else {
-        header("Location: carousel_management.php?status=error&message=Tidak ada gambar yang diupload atau terjadi error.");
-    }
+            } else {
+                header("Location: settings_management.php?status=error&message=Tipe file tidak valid. Hanya JPG/PNG.");
+            }
+            } else {
+                header("Location: settings_management.php??status=error&message=Tidak ada gambar yang diupload atau terjadi error.");
+            }
 }
 
 // --- FUNGSI HAPUS SLIDE ---
@@ -68,15 +67,13 @@ if ($action == 'delete') {
     $stmt_delete = $conn->prepare("DELETE FROM carousel_slides WHERE id = ?");
     $stmt_delete->bind_param("i", $id);
     if ($stmt_delete->execute()) {
-        // 3. Jika record berhasil dihapus, hapus juga file gambarnya
         if (isset($image_to_delete) && file_exists($image_to_delete)) {
             unlink($image_to_delete);
         }
-        header("Location: carousel_management.php?status=success&message=Slide berhasil dihapus.");
+        header("Location: settings_management.php?status=success&message=Slide berhasil dihapus.#carousel-section");
     } else {
-        header("Location: carousel_management.php?status=error&message=Gagal menghapus slide.");
+        header("Location: settings_management.php?status=error&message=Gagal menghapus slide.#carousel-section");
     }
     $stmt_delete->close();
 }
-
 $conn->close();

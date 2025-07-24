@@ -7,7 +7,6 @@ body {
 .hero-section {
     position: relative;
     height: 100vh;
-    /* background-size dan color bisa tetap ada atau dihapus karena sudah di-handle inline */
     background-size: cover; 
     color: white;
 }
@@ -20,7 +19,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.6); /* Warna hitam dengan 60% transparansi */
+    background: rgba(0, 0, 0, 0.6);
     z-index: 1;
 }
 
@@ -30,11 +29,12 @@ body {
     z-index: 2;
 }
 
-
+/* === PERUBAHAN DI SINI === */
 /* Carousel Style */
 #productCarousel img {
-    height: 500px;
-    object-fit: cover; /* Gambar akan terpotong agar pas tanpa distorsi */
+    height: 400px; /* Ukuran tinggi carousel diubah */
+    width:  200px; /* Ukuran lebar carousel diubah */
+    object-fit: cover;
 }
 
 /* Atur warna overlay caption carousel agar lebih terbaca */
