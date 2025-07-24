@@ -21,6 +21,17 @@
 </head>
 <body>
 <?php
+require_once 'db_connection.php'; // Pastikan koneksi DB dipanggil
+
+// Ambil semua pengaturan dari database
+$settings_query = "SELECT setting_key, setting_value FROM site_settings";
+$settings_result = $conn->query($settings_query);
+$settings = [];
+while ($row = $settings_result->fetch_assoc()) {
+    $settings[$row['setting_key']] = $row['setting_value'];
+}
+?>
+<?php
 // Letakkan ini di bagian paling atas file index.php setelah tag <body> jika belum ada
 // atau cukup pastikan koneksi DB tersedia sebelum section carousel.
 require_once 'db_connection.php'; 
@@ -70,13 +81,14 @@ if ($slides_result->num_rows > 0) {
     </nav>
 
     <!-- Hero Section -->
-    <header id="hero" class="hero-section d-flex align-items-center">
-        <div class="container text-center text-white">
-            <h1 class="display-4 fw-bold">Kualitas Frozen Food Terbaik, Langsung ke Tempat Anda</h1>
-            <p class="lead my-3">Kami adalah mitra distributor terpercaya untuk hotel, restoran, dan kafe Anda.</p>
-            <a href="#produk-unggulan" class="btn btn-primary btn-lg mt-2">Lihat Produk Kami</a>
-        </div>
-    </header>
+<header id="hero" class="hero-section d-flex align-items-center" 
+        style="background: url('assets/images/site/<?php echo htmlspecialchars($settings['hero_image']); ?>') no-repeat center center; background-size: cover;">
+    <div class="container text-center text-white">
+        <h1 class="display-4 fw-bold"><?php echo htmlspecialchars($settings['hero_title']); ?></h1>
+        <p class="lead my-3"><?php echo htmlspecialchars($settings['hero_subtitle']); ?></p>
+        <a href="#produk-unggulan" class="btn btn-primary btn-lg mt-2">Lihat Produk Kami</a>
+    </div>
+</header>
 
     <!-- Tentang Kami Section -->
     <section id="tentang-kami" class="py-5">

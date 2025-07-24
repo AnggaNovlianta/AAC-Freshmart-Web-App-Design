@@ -90,6 +90,12 @@ $result_users = $conn->query($query_users);
             <i class="fa-regular fa-images"></i> Manajemen Carousel
         </a>
     </li>
+    <!-- Di dalam file admin_dashboard.php, di dalam <ul class="nav ..."> -->
+    <li>
+        <a href="settings_management.php" class="nav-link text-white">
+            <i class="fa fa-cog"></i> Pengaturan Website
+        </a>
+    </li>
     <li>
         <a href="#" class="nav-link text-white">
             <i class="fa fa-box"></i> Manajemen Produk
